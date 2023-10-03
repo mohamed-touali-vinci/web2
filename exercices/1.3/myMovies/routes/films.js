@@ -40,10 +40,38 @@ const films = [
   },
 ];
 
-// Read all the films of the catalogue
-router.get('/', (req, res, next) => {
-  console.log('GET /films');
-  res.json(films);
+
+// Read the film identified by an id 
+
+router.get('/:id', (req, res) => {
+  console.log(`GET /films/${req.params.id}`);
+
+  const indexOfFilmFound = films.findIndex((film) => film.id == req.params.id);
+
+  if (indexOfFilmFound < 0) return res.sendStatus(404);
+
+  res.json(films[indexOfFilmFound]);
 });
+
+/* Read all the films 
+  GET /films?order=title : ascending order by title
+  get /films?order=-title : descending order by title
+*/
+router.get('/', (req, res, next) => {
+  const orderByTitle =
+    req?.query?.order?.includes('title')
+      ? req.query.order
+      : undefined;
+  let orderedFilms;
+  console.log(`order by ${orderByTitle ?? 'not requested'}`);
+  if(orderByTitle)
+    orderedFilms = [...films].sort((a,b) => a.title.localeCompare(b.title));
+  if(orderByTitle === '-title')
+    orderedFilms = orderedFilms.reverse();
+
+  console.log('GET /films');
+  res.json(orderedFilms ?? films);
+});
+
 
 module.exports = router;
