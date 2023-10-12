@@ -102,6 +102,43 @@ router.post('/', (req, res) => {
   res.json(newFilm);
 });
 
+// Delete a film from the list based on its id
+router.delete('/:id', (req, res) => {
+  console.log(`DELETE /films/${req.params.id}`);
+
+  const foundIndex = films.findIndex(film => film.id == req.params.id);
+
+  if (foundIndex < 0) return res.sendStatus(404);
+
+  const itemsRemovedFromFilms = films.splice(foundIndex, 1);
+  const itemRemoved = itemsRemovedFromFilms[0];
+
+  res.json(itemRemoved);
+});
+
+// Update a film based on its id and new values for its parameters
+router.patch('/:id', (req, res) => {
+  console.log(`PATCH /films/${req.params.id}`);
+
+  const title = req?.body?.title;
+  const duration = req?.body?.duration;
+  const budget = req?.body?.budget;
+  const link = req?.body?.link;
+
+  console.log('POST /films');
+
+  if ((!title && !duration && !budget && !link) || title?.length === 0 || duration?.length > 0 || budget?.length > 0 || link?.length === 0 ) return res.sendStatus(400);
+
+  const foundIndex = films.findIndex(film => film.id == req.params.id);
+
+  if (foundIndex < 0) return res.sendStatus(404);
+
+  const updatedFilm = {...films[foundIndex], ...req.body};
+
+  films[foundIndex] = updatedFilm;
+
+  res.json(updatedFilm);
+});
 
 
 module.exports = router;

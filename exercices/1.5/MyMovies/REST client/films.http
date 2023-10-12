@@ -9,13 +9,12 @@ Content-Type: application/json
     "link":"https://www.imdb.com/title/tt0137523/"
 }
 
-### Create a film
+### Create a film which lacks a property
 POST http://localhost:3000/films
 Content-Type: application/json
 
 {
     "title":"La marmitas",
-    "duration":2,
     "budget":2,
     "link":"https://www.imdb.com/title/tt0137524/"
 }
@@ -29,3 +28,11 @@ GET {{baseUrl}}/films
 
 ###
 POST {{baseUrl}}/films
+
+### Delete film identified by 2
+DELETE {{baseUrl}}/films/2
+
+### Update film
+{
+    "title":"Magic Green 2"
+}
