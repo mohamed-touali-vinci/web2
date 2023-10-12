@@ -73,5 +73,35 @@ router.get('/', (req, res, next) => {
   res.json(orderedFilms ?? films);
 });
 
+// Create a film to be added to the list
+router.post('/', (req, res) => {
+  const title = req?.body?.title?.length !== 0 ? req.body.title : undefined;
+  const duration = req?.body?.duration?.length > 0 ? req.body.duration : undefined;
+  const budget = req?.body?.budget?.length > 0 ? req.body.budget : undefined;
+  const link = req?.body?.link?.length !== 0 ? req.body.link : undefined;
+
+
+  console.log('POST /films');
+
+  if (!title || !duration || !budget || !link) return res.sendStatus(400); // error code '400 Bad request'
+
+  const lastItemIndex = films?.length !== 0 ? films.length - 1 : undefined;
+  const lastId = lastItemIndex !== undefined ? films[lastItemIndex]?.id : 0;
+  const nextId = lastId + 1;
+
+  const newFilm = {
+    id: nextId,
+    title: title,
+    duration: duration,
+    budget: budget,
+    link: link
+  };
+
+  films.push(newFilm);
+
+  res.json(newFilm);
+});
+
+
 
 module.exports = router;
