@@ -1,0 +1,31 @@
+### Create a film
+POST http://localhost:3000/films
+Content-Type: application/json
+
+{
+    "title":"La marmitas",
+    "duration":120,
+    "budget":5,
+    "link":"https://www.imdb.com/title/tt0137523/"
+}
+
+### Create a film
+POST http://localhost:3000/films
+Content-Type: application/json
+
+{
+    "title":"La marmitas",
+    "duration":2,
+    "budget":2,
+    "link":"https://www.imdb.com/title/tt0137524/"
+}
+
+### Read all films
+GET http://localhost:3000/films
+
+### Read all films with File variable
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/films
+
+###
+POST {{baseUrl}}/films
