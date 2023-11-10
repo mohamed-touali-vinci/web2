@@ -1,0 +1,36 @@
+### Read all films with File variable
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/films
+
+### Create a film
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title":"billie jons",
+    "duration": 150,
+    "budget": 5,
+    "link": "https://twitch.tv/cimer_chef"
+}
+
+
+### Create a film which lacks a property
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title":"La marmitas",
+    "budget":2,
+    "link":"https://www.imdb.com/title/tt0137524/"
+}
+
+### Delete film identified by 2
+DELETE {{baseUrl}}/films/2
+
+### Update film
+PATCH {{baseUrl}}/films/6
+Content-Type: application/json
+
+{
+    "title":"pazman se tape face billie jons"
+}
